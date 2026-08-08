@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+*.tgz
+
+# Private project notes are never part of the public repository.
+CLAUDE.md
+CONTEXT.md
+REFERENCES.md

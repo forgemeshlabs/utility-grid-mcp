@@ -1,0 +1,30 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      utilityGridBaseUrl:
+        type: string
+        description: >-
+          Utility Grid API origin override. Defaults to
+          https://x402.forgemesh.io.
+      walletPrivateKey:
+        type: string
+        description: >-
+          Dedicated low-balance Base wallet private key for x402 USDC
+          micropayments. Optional — the 3 discovery tools (list_capabilities,
+          search_capabilities, get_endpoint_spec) work without any wallet.
+          Only the 3 paid tools (call_endpoint, daily_402,
+          agent_service_directory) need it. Never use your primary wallet.
+  commandFunction: |-
+    (config) => ({
+      command: 'npx',
+      args: ['-y', '@forgemeshlabs/utility-grid-mcp'],
+      env: {
+        ...(config.utilityGridBaseUrl ? { UTILITY_GRID_BASE_URL: config.utilityGridBaseUrl } : {}),
+        ...(config.walletPrivateKey ? { WALLET_PRIVATE_KEY: config.walletPrivateKey } : {})
+      }
+    })
+  exampleConfig:
+    utilityGridBaseUrl: 'https://x402.forgemesh.io'
+    walletPrivateKey: '0x...'

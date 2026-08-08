@@ -1,0 +1,60 @@
+{
+  "name": "@forgemeshlabs/utility-grid-mcp",
+  "version": "0.1.1",
+  "description": "Discover and call 400+ practical APIs through six MCP tools. Search OCR, image, audio, web, math, conversion, and geodata utilities for free, then pay per call with x402 USDC on Base—no account or API key.",
+  "main": "index.js",
+  "bin": {
+    "utility-grid-mcp": "index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "server.json",
+    "glama.json",
+    "GLAMA.md",
+    "Dockerfile",
+    ".dockerignore",
+    "smithery.yaml",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "mcpName": "io.github.forgemeshlabs/utility-grid-mcp",
+  "scripts": {
+    "start": "node index.js",
+    "build": "echo \"no build step required\"",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "x402",
+    "utility-grid",
+    "ocr",
+    "vision",
+    "tts",
+    "geo",
+    "math",
+    "usdc",
+    "base",
+    "micropayments",
+    "autonomous-agents",
+    "agent-tools"
+  ],
+  "author": "ForgeMesh Labs (https://forgemesh.io)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forgemeshlabs/utility-grid-mcp.git"
+  },
+  "homepage": "https://x402.forgemesh.io",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@x402/core": "^2.17.0",
+    "@x402/evm": "^2.17.0",
+    "viem": "^2.0.0"
+  }
+}

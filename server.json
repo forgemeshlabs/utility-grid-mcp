@@ -1,0 +1,44 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.forgemeshlabs/utility-grid-mcp",
+  "description": "Discover and call 400+ practical APIs through six MCP tools with free search and x402 payments.",
+  "repository": {
+    "url": "https://github.com/forgemeshlabs/utility-grid-mcp",
+    "source": "github"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@forgemeshlabs/utility-grid-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "WALLET_PRIVATE_KEY",
+          "description": "Dedicated low-balance Base wallet private key for x402 USDC micropayments. Only required for the 3 paid tools (call_endpoint, daily_402, agent_service_directory) — the 3 discovery tools work without it. Never use your primary wallet.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "UTILITY_GRID_BASE_URL",
+          "description": "Utility Grid API origin override. Defaults to https://x402.forgemesh.io.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "title": "ForgeMesh Utility Grid MCP",
+  "websiteUrl": "https://x402.forgemesh.io",
+  "icons": [
+    {
+      "src": "https://x402.forgemesh.io/favicon.ico",
+      "mimeType": "image/png"
+    }
+  ]
+}

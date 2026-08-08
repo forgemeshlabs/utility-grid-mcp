@@ -1,0 +1,31 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "name": "@forgemeshlabs/utility-grid-mcp",
+  "description": "Discover and call 400+ practical APIs through six MCP tools. Search the catalog free, then pay per call with x402 USDC on Base.",
+  "maintainers": [
+    "clawdbotworker"
+  ],
+  "build": {
+    "steps": [
+      "npm ci --omit=dev"
+    ],
+    "cmd": [
+      "node",
+      "index.js"
+    ]
+  },
+  "placeholderArguments": {},
+  "tags": [
+    "x402",
+    "usdc",
+    "base",
+    "utility-grid",
+    "ocr",
+    "vision",
+    "tts",
+    "geo",
+    "math",
+    "mcp",
+    "autonomous-agents"
+  ]
+}
