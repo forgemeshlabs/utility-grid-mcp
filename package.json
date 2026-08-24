@@ -1,6 +1,6 @@
 {
   "name": "@forgemeshlabs/utility-grid-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Discover and call 400+ practical APIs through six MCP tools. Search OCR, image, audio, web, math, conversion, and geodata utilities for free, then pay per call with x402 USDC on Base—no account or API key.",
   "main": "index.js",
   "bin": {

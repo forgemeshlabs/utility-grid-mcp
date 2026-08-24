@@ -11,7 +11,7 @@ const { privateKeyToAccount } = require("viem/accounts");
 const { createPublicClient, http } = require("viem");
 const { base } = require("viem/chains");
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 const BASE_URL = (process.env.UTILITY_GRID_BASE_URL || "https://x402.forgemesh.io").replace(/\/$/, "");
 const BASE_RPC_URL = process.env.BASE_RPC_URL || "https://mainnet.base.org";
 
@@ -240,6 +240,12 @@ async function paidPost(ctx, path, body) {
 const TOOLS = [
   {
     name: "list_capabilities",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
     description:
       `FREE — no wallet needed. Browse the ForgeMesh Utility Grid catalog (415+ POST routes and growing, covering ${CATEGORY_EXAMPLES}). Call with no arguments for a category overview with route counts, or pass a category to list every route in it with price and description. Always reads the live /openapi.json — never a stale/hardcoded list.`,
     inputSchema: {
@@ -251,6 +257,12 @@ const TOOLS = [
   },
   {
     name: "search_capabilities",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
     description:
       "FREE — no wallet needed. Keyword search across every route's path, operation id, and description (e.g. 'chess', 'timezone', 'background removal'). Use this when you don't know the exact route name or category.",
     inputSchema: {
@@ -264,6 +276,12 @@ const TOOLS = [
   },
   {
     name: "get_endpoint_spec",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
     description:
       "FREE — no wallet needed. Full call spec for one route: price, input JSON schema, a worked request example, and a worked response example, straight from the live OpenAPI discovery doc. Pass the route path (with or without a leading slash, e.g. 'chess-moves' or '/chess-moves'). Use this before call_endpoint to know exactly what body to send.",
     inputSchema: {
@@ -276,6 +294,12 @@ const TOOLS = [
   },
   {
     name: "call_endpoint",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: false,
+      openWorldHint: true,
+    },
     description:
       "PAID (price varies by route, $0.001-$0.05) — the generic way to call ANY route in the Utility Grid. Pass the route path and a JSON body matching its input schema (use get_endpoint_spec first if unsure). Handles the full x402 payment flow automatically: fetches the 402 challenge, signs a USDC payment on Base, retries, and returns the result. Requires WALLET_PRIVATE_KEY.",
     inputSchema: {
@@ -289,6 +313,12 @@ const TOOLS = [
   },
   {
     name: "daily_402",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: false,
+      openWorldHint: true,
+    },
     description:
       "PAID ($0.001) — the Daily 402: one featured x402 endpoint per UTC day, rotated deterministically through every paid route in the 12-service ForgeMesh fleet (500+ routes). Returns what it does, its price, input schema, and a worked example. Optional date override to replay a past day's pick. Requires WALLET_PRIVATE_KEY.",
     inputSchema: {
@@ -300,6 +330,12 @@ const TOOLS = [
   },
   {
     name: "agent_service_directory",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: false,
+      openWorldHint: true,
+    },
     description:
       "PAID ($0.05) — machine-readable registry of every production x402 service in the ForgeMesh fleet: name, category, live route count, and price range per service. Useful for an agent deciding which paid tool/service to reach for next. Optional category filter (onchain-intel, voice, travel, econ-intel, commerce, infra, media, utility-grid). Requires WALLET_PRIVATE_KEY.",
     inputSchema: {
