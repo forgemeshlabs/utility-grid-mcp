@@ -1,5 +1,7 @@
 # ForgeMesh Utility Grid MCP
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/forgemeshlabs-utility-grid-mcp-17smfq)](https://m8ven.ai/mcp/forgemeshlabs-utility-grid-mcp-17smfq)
+
 *A [ForgeMesh Labs](https://forgemesh.io) product.*
 
 Search and use more than 400 practical APIs without loading hundreds of tools into your agent. Utility Grid exposes six compact MCP tools for OCR, image and audio processing, web extraction, math, conversions, geodata, and more. Catalog discovery is free; API execution is paid per call in USDC on Base through [x402](https://x402.org). No account or API key is required.
