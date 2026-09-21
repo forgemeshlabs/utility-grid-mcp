@@ -1,6 +1,7 @@
 # ForgeMesh Utility Grid MCP
 
 [![M8ven Score](https://m8ven.ai/badge/mcp/forgemeshlabs-utility-grid-mcp-17smfq)](https://m8ven.ai/mcp/forgemeshlabs-utility-grid-mcp-17smfq)
+[![mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/forgemeshlabs/utility-grid-mcp)
 
 *A [ForgeMesh Labs](https://forgemesh.io) product.*
 
