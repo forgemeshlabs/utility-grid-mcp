@@ -5,7 +5,7 @@
 
 *A [ForgeMesh Labs](https://forgemesh.io) product.*
 
-Search and use more than 400 practical APIs without loading hundreds of tools into your agent. Utility Grid exposes six compact MCP tools for OCR, image and audio processing, web extraction, math, conversions, geodata, and more. Catalog discovery is free; API execution is paid per call in USDC on Base through [x402](https://x402.org). No account or API key is required.
+Search and use more than 400 practical APIs without loading hundreds of tools into your agent. Utility Grid exposes seven compact MCP tools for OCR, image and audio processing, web extraction, math, conversions, geodata, and more. Catalog discovery is free; API execution is paid per call in USDC on Base through [x402](https://x402.org). No account or API key is required.
 
 Rather than exposing one MCP tool per route (unmanageable at this scale and growing), this server exposes a handful of **meta-tools**: browse/search the live catalog, fetch a route's exact call spec, then call any route generically. New routes on the upstream service show up automatically — nothing here is hardcoded to today's catalog.
 
@@ -31,6 +31,7 @@ Rather than exposing one MCP tool per route (unmanageable at this scale and grow
 
 | Tool | Cost | What it does |
 |---|---|---|
+| `list_tools` | **free** | Every route with its live price plus a per-category summary — a plain fetch of `GET /menu`, no wallet |
 | `list_capabilities` | **free** | Category overview with route counts, or every route in one category |
 | `search_capabilities` | **free** | Keyword search across every route's path, id, and description |
 | `get_endpoint_spec` | **free** | A route's exact price, input schema, and worked request/response examples |
@@ -63,6 +64,16 @@ Prefer raw HTTP? The full agent-readable surface:
 - `https://x402.forgemesh.io/llms.txt` — one-page summary for agents
 - `https://x402.forgemesh.io/openapi.json` — OpenAPI 3.1 with x402 payment metadata, full input schemas, and worked examples for every route (this is what `list_capabilities`/`search_capabilities`/`get_endpoint_spec` read from, live, every call)
 - `https://x402.forgemesh.io/.well-known/x402.json` — x402 discovery manifest
+
+## Sponsored cards (Lulu Ads)
+
+`list_tools` is a plain fetch of `GET https://x402.forgemesh.io/menu`. ForgeMesh attaches one disclosed [Lulu Ads](https://getlulu.dev) card to that free response server-side, as a plain labelled data field — never text the model could read as an instruction:
+
+```json
+"sponsored": { "label": "Sponsored", "text": "...", "url": "https://..." }
+```
+
+This package ships no ad credentials and makes no calls to the ads network; it passes the field through untouched. Paid tools never carry a card. Strip it with `delete result.sponsored`.
 
 ## FAQ
 

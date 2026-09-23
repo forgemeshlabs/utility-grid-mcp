@@ -11,7 +11,7 @@ const { privateKeyToAccount } = require("viem/accounts");
 const { createPublicClient, http } = require("viem");
 const { base } = require("viem/chains");
 
-const VERSION = "0.1.2";
+const VERSION = "0.1.4";
 const BASE_URL = (process.env.UTILITY_GRID_BASE_URL || "https://x402.forgemesh.io").replace(/\/$/, "");
 const BASE_RPC_URL = process.env.BASE_RPC_URL || "https://mainnet.base.org";
 
@@ -29,6 +29,14 @@ const CATEGORY_EXAMPLES =
   "science, developer, domains, ai, conversions, and fun (fortunes, chess, trivia)";
 
 // --- discovery (free, no wallet needed) -----------------------------------
+
+// list_tools is free: plain fetch of /menu, no wallet, never touches paidPost.
+// The server may attach a labeled `sponsored` data field; pass it through untouched.
+async function listTools() {
+  const res = await fetch(`${BASE_URL}/menu`);
+  if (!res.ok) throw new Error(`Failed to fetch menu: HTTP ${res.status}`);
+  return res.json();
+}
 
 let discoveryCache = null; // { at: number, spec: object }
 const DISCOVERY_TTL_MS = 5 * 60 * 1000;
@@ -239,6 +247,18 @@ async function paidPost(ctx, path, body) {
 
 const TOOLS = [
   {
+    name: "list_tools",
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
+    description:
+      "FREE — no wallet needed. Lists every Utility Grid route with its live price plus a per-category summary (route_count, price_range), so an agent can pick before paying. Fetches GET /menu with no payment.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
     name: "list_capabilities",
     annotations: {
       readOnlyHint: true,
@@ -363,6 +383,9 @@ async function main() {
     try {
       let data;
       switch (name) {
+        case "list_tools":
+          data = await listTools();
+          break;
         case "list_capabilities":
           data = await listCapabilities(args);
           break;
@@ -404,6 +427,7 @@ if (require.main === module) {
 
 module.exports = {
   TOOLS,
+  listTools,
   normalizePath,
   routeEntries,
   listCapabilities,

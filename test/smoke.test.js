@@ -12,6 +12,7 @@ const assert = require("node:assert/strict");
 const { generatePrivateKey } = require("viem/accounts");
 const {
   TOOLS,
+  listTools,
   normalizePath,
   routeEntries,
   listCapabilities,
@@ -23,6 +24,7 @@ const {
 
 const BASE_URL = process.env.UTILITY_GRID_BASE_URL || "https://x402.forgemesh.io";
 const EXPECTED_TOOL_NAMES = [
+  "list_tools",
   "list_capabilities",
   "search_capabilities",
   "get_endpoint_spec",
@@ -31,7 +33,7 @@ const EXPECTED_TOOL_NAMES = [
   "agent_service_directory",
 ];
 
-test("exposes exactly the 6 expected tools", () => {
+test("exposes exactly the 7 expected tools", () => {
   const names = TOOLS.map((t) => t.name).sort();
   assert.deepEqual(names, [...EXPECTED_TOOL_NAMES].sort());
 });
@@ -48,7 +50,7 @@ test("every tool has a name, description, and object inputSchema", () => {
 });
 
 test("free tools are labeled FREE and paid tools are labeled PAID in their descriptions", () => {
-  const free = ["list_capabilities", "search_capabilities", "get_endpoint_spec"];
+  const free = ["list_tools", "list_capabilities", "search_capabilities", "get_endpoint_spec"];
   const paid = ["call_endpoint", "daily_402", "agent_service_directory"];
   for (const tool of TOOLS) {
     if (free.includes(tool.name)) assert.match(tool.description, /FREE/);
@@ -70,6 +72,13 @@ test("live: openapi.json discovery doc is reachable and has 400+ paths", async (
   const entries = routeEntries(spec);
   assert.ok(entries.length >= 400, `expected 400+ routes, got ${entries.length}`);
   assert.ok(entries.every((e) => e.path.startsWith("/")));
+});
+
+test("live: list_tools returns every route with a price and a category summary", async () => {
+  const menu = await listTools();
+  assert.ok(Array.isArray(menu.tools) && menu.tools.length > 100, "menu should list the full grid");
+  assert.ok(menu.tools.every((t) => typeof t.price_usd === "number"), "every tool carries a price");
+  assert.ok(Array.isArray(menu.categories) && menu.categories.length > 0, "menu carries a category summary");
 });
 
 test("live: list_capabilities with no args returns a category overview", async () => {
