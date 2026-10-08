@@ -14,6 +14,8 @@ const {
   TOOLS,
   listTools,
   normalizePath,
+  assertRoutePath,
+  validateArgs,
   routeEntries,
   listCapabilities,
   searchCapabilities,
@@ -66,6 +68,21 @@ test("normalizePath adds a leading slash and strips trailing slashes", () => {
 });
 
 // --- Live checks against the real service (network required, no payments) ---
+
+test("assertRoutePath accepts route paths and rejects hosts, traversal and protocol-relative paths", () => {
+  assert.equal(assertRoutePath("/chess-moves"), "/chess-moves");
+  for (const bad of ["//evil.com/x", "/../etc", "/a/../b", "/a?x=1", "https://evil.com/x", "/" + "a".repeat(201)]) {
+    assert.throws(() => assertRoutePath(bad), /Invalid path/, bad);
+  }
+});
+
+test("validateArgs rejects bad input before any network call", () => {
+  assert.doesNotThrow(() => validateArgs("call_endpoint", { path: "chess-moves", body: {} }));
+  assert.throws(() => validateArgs("call_endpoint", {}), /Missing required/);
+  assert.throws(() => validateArgs("call_endpoint", { path: "x", body: "str" }), /expected object/);
+  assert.throws(() => validateArgs("search_capabilities", { query: "q", limit: 999 }), /between/);
+  assert.throws(() => validateArgs("daily_402", { date: "tomorrow" }), /format/);
+});
 
 test("live: openapi.json discovery doc is reachable and has 400+ paths", async () => {
   const spec = await fetchOpenApiSpec();

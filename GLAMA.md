@@ -49,7 +49,7 @@ explicitly asks for the wrapped command.
 Canonical env schema belongs in `server.json`, not `glama.json`.
 
 - `WALLET_PRIVATE_KEY` - optional, only required for the 3 paid tools (`call_endpoint`, `daily_402`, `agent_service_directory`). A dedicated low-balance Base wallet.
-- `UTILITY_GRID_BASE_URL` - optional hosted API base URL override.
+- `X402_MAX_PRICE_USD`, `X402_SESSION_BUDGET_USD` - optional; can only lower the built-in caps ($0.05 per call, $10 per session).
 
 ## Dockerfile
 

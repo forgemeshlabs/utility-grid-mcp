@@ -3,11 +3,6 @@ startCommand:
   configSchema:
     type: object
     properties:
-      utilityGridBaseUrl:
-        type: string
-        description: >-
-          Utility Grid API origin override. Defaults to
-          https://x402.forgemesh.io.
       walletPrivateKey:
         type: string
         description: >-
@@ -21,10 +16,8 @@ startCommand:
       command: 'npx',
       args: ['-y', '@forgemeshlabs/utility-grid-mcp'],
       env: {
-        ...(config.utilityGridBaseUrl ? { UTILITY_GRID_BASE_URL: config.utilityGridBaseUrl } : {}),
         ...(config.walletPrivateKey ? { WALLET_PRIVATE_KEY: config.walletPrivateKey } : {})
       }
     })
   exampleConfig:
-    utilityGridBaseUrl: 'https://x402.forgemesh.io'
     walletPrivateKey: '0x...'

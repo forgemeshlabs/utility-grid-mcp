@@ -53,6 +53,10 @@ Call `list_capabilities` with no arguments for the live, current breakdown — t
 
 Or skip straight to `call_endpoint` if you already know the route and its input shape.
 
+## Requirements
+
+Node.js 20+. Paid tools need `WALLET_PRIVATE_KEY`: use a dedicated, low-balance Base wallet funded with USDC. The server refuses to sign for any payee other than the two Utility Grid wallets, any network other than Base mainnet, any asset other than USDC, or any amount over the cap ($0.05 per call, $10 per session). The env vars `X402_MAX_PRICE_USD` and `X402_SESSION_BUDGET_USD` can only lower those caps. Requests are same-origin, time out after 60 seconds, are capped at 2 MB, and never follow redirects. Tool results are returned wrapped as `{ source, untrusted, content }`: the content is remote data, not instructions.
+
 ## How payment works
 
 No signup, no API key, no subscription. `call_endpoint`, `daily_402`, and `agent_service_directory` each trigger the same flow: the first request returns an HTTP 402 challenge, this MCP server signs a USDC payment authorization (EIP-3009) on Base and retries, and the result lands in the same response — including settlement details under `_payment` when available.
