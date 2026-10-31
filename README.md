@@ -35,8 +35,8 @@ Rather than exposing one MCP tool per route (unmanageable at this scale and grow
 | `list_capabilities` | **free** | Category overview with route counts, or every route in one category |
 | `search_capabilities` | **free** | Keyword search across every route's path, id, and description |
 | `get_endpoint_spec` | **free** | A route's exact price, input schema, and worked request/response examples |
-| `call_endpoint` | $0.001-$0.05 | Call any route by path + JSON body — handles the x402 payment flow automatically |
-| `daily_402` | $0.001 | The Daily 402: one featured endpoint from the whole ForgeMesh fleet, rotated by UTC date |
+| `call_endpoint` | $0.005-$0.05 | Call any route by path + JSON body — handles the x402 payment flow automatically |
+| `daily_402` | $0.005 | The Daily 402: one featured endpoint from the whole ForgeMesh fleet, rotated by UTC date |
 | `agent_service_directory` | $0.05 | Registry of every ForgeMesh x402 service — category, route count, price range |
 
 ## Categories in the catalog (illustrative, not exhaustive)

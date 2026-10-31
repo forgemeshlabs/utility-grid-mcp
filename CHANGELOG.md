@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.7 — 2026-10-31
+- Price copy: every route now $0.005 minimum (fleet pricing floor); no behaviour change, the live 402 still sets the amount.
+
 ## 0.1.1
 
 - Updated MCP dependencies to resolve security advisories.
