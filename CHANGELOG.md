@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.8
+
+- Dependencies: lockfile refresh resolving the open npm advisories (zod via @x402/core, body-parser, fast-uri, qs, ip-address, @hono/node-server as applicable). No behavior change.
+
 ## 0.1.7 — 2026-10-31
 - Price copy: every route now $0.005 minimum (fleet pricing floor); no behaviour change, the live 402 still sets the amount.
 
